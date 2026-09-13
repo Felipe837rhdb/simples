@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante Simples Sabor | Comida Caseira & Buffet</title>
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0f0b08;
+            --surface-dark: #1c140e;
+            --card-dark: #261b13;
+            --card-hover: #332318;
+            
+            --neon-gold: #ffb700;
+            --neon-orange: #ff6b00;
+            --neon-green: #00ff88;
+            --danger: #ef4444;
+            
+            --gradient-gold: linear-gradient(135deg, #ffb700 0%, #ff8800 100%);
+            --glow-gold: rgba(255, 183, 0, 0.4);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #c9b9ac;
+            --border-glow: rgba(255, 183, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 90px;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Topo Neon */
+        header {
+            background: rgba(15, 11, 8, 0.9);
+            backdrop-filter: blur(15px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 0 15px var(--glow-gold);
+        }
+
+        .brand-name {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+
+        .brand-name span {
+            color: var(--neon-gold);
+            text-shadow: 0 0 10px var(--glow-gold);
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-gold);
+            text-shadow: 0 0 8px var(--glow-gold);
+        }
+
+        /* Banner Principal / Hero */
+        .hero {
+            min-height: 75vh;
+            padding: 130px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(255,183,0,0.15) 0%, rgba(15,11,8,1) 75%);
+        }
+
+        .hero-badge {
+            background: rgba(255, 183, 0, 0.15);
+            border: 1px solid var(--neon-gold);
+            color: var(--neon-gold);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px var(--glow-gold);
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            max-width: 800px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--neon-gold);
+            text-shadow: 0 0 20px var(--glow-gold);
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin-bottom: 25px;
+        }
+
+        .reviews-highlight {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .review-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #ddd;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Menu Sticky */
+        .category-nav-wrapper {
+            position: sticky;
+            top: 75px;
+            z-index: 900;
+            background: rgba(15, 11, 8, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-glow);
+            margin-bottom: 40px;
+        }
+
+        .category-nav {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 0 5%;
+            scrollbar-width: none;
+        }
+        .category-nav::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            background: var(--card-dark);
+            color: var(--text-primary);
+            padding: 8px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            border: 1px solid var(--border-glow);
+            transition: 0.3s;
+        }
+
+        .cat-btn:hover {
+            background: var(--gradient-gold);
+            color: #1a100a;
+            box-shadow: 0 0 15px var(--glow-gold);
+        }
+
+        /* Containers & Cards */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5% 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--neon-gold);
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px var(--glow-gold);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--card-dark);
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: var(--card-hover);
+            border-color: var(--neon-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--glow-gold);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            color: #fff;
+        }
+
+        .card-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--neon-gold);
+            text-shadow: 0 0 10px rgba(255, 183, 0, 0.3);
+            white-space: nowrap;
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .btn-card {
+            background: rgba(255, 183, 0, 0.1);
+            color: var(--neon-gold);
+            border: 1px solid var(--neon-gold);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-card:hover {
+            background: var(--gradient-gold);
+            color: #1a100a;
+            box-shadow: 0 0 15px var(--glow-gold);
+        }
+
+        /* Barra Flutuante do Carrinho */
+        .smart-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 11, 8, 0.95);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid var(--border-glow);
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 950;
+        }
+
+        .total-info span { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; }
+        .total-info strong { font-size: 1.3rem; font-weight: 800; color: var(--neon-gold); display: block; }
+
+        .btn-cart-toggle {
+            background: var(--gradient-gold);
+            color: #1a100a;
+            font-weight: 800;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--glow-gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-badge {
+            background: #1a100a;
+            color: var(--neon-gold);
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        /* Modal do Carrinho */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            display: none; justify-content: center; align-items: flex-end; z-index: 2000;
+        }
+        .modal-content {
+            background: var(--surface-dark); border-top: 1px solid var(--neon-gold); border-radius: 24px 24px 0 0;
+            width: 100%; max-width: 550px; padding: 24px; max-height: 80vh; overflow-y: auto;
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h2 { font-size: 1.3rem; color: var(--neon-gold); }
+        .close-btn { background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; }
+
+        .cart-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .cart-item-title { font-size: 0.95rem; font-weight: 600; color: #fff; }
+        .cart-item-price { font-size: 0.95rem; color: var(--neon-gold); font-weight: 700; }
+        
+        .btn-remove {
+            background: rgba(239, 68, 68, 0.15); border: 1px solid var(--danger); color: var(--danger);
+            padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600;
+        }
+
+        .btn-checkout {
+            width: 100%; background: #25d366; color: #000; font-weight: 800; border: none;
+            padding: 16px; border-radius: 30px; font-size: 1rem; margin-top: 20px; cursor: pointer;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #080503;
+            padding: 50px 5% 30px;
+            text-align: center;
+            border-top: 1px solid var(--border-glow);
+        }
+
+        .info-tag {
+            display: inline-block;
+            background: rgba(255, 183, 0, 0.1);
+            color: var(--neon-gold);
+            border: 1px solid var(--neon-gold);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .copyright {
+            color: #665649;
+            font-size: 0.8rem;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Fixo -->
+    <header>
+        <div class="logo-box">
+            <div class="logo-icon">🍲</div>
+            <div class="brand-name brand-font">Restaurante <span>Simples Sabor</span></div>
+        </div>
+        <nav class="nav-links">
+            <a href="#marmitas">Marmitex</a>
+            <a href="#buffet">Buffet & Sobremesa</a>
+            <a href="#bebidas">Bebidas</a>
+            <a href="#contato">Endereço</a>
+        </nav>
+    </header>
+
+    <!-- Banner Hero -->
+    <section class="hero">
+        <div class="hero-badge">🍧 Sobremesa Grátis Incluída no Buffet!</div>
+        <h1>Comida Caseira com o <span>Verdadeiro Sabor!</span></h1>
+        <p>Almoço variado, feijoada, bobó e marmitex fartas preparadas todos os dias com carinho em Queimados.</p>
+        
+        <div class="reviews-highlight">
+            <div class="review-card">⭐ <b>4.6 / 5.0</b> (60+ avaliações no Google)</div>
+            <div class="review-card">🍧 <i>"Sobremesa grátis no buffet"</i></div>
+            <div class="review-card">❤️ <i>"Comida perfeita, bom e barato"</i></div>
+        </div>
+    </section>
+
+    <!-- Navegação Sticky de Categorias -->
+    <div class="category-nav-wrapper">
+        <div class="category-nav">
+            <a href="#marmitas" class="cat-btn">🍱 Marmitex Caseiras</a>
+            <a href="#buffet" class="cat-btn">🍛 Buffet & Especiais</a>
+            <a href="#bebidas" class="cat-btn">🥤 Bebidas Geladas</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Marmitex -->
+        <h2 id="marmitas" class="section-title">🍱 Marmitex Caseiras</h2>
+        <div class="menu-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop" alt="Marmitex Executiva" class="card-img">
+                <div class="card-body">
+                    <div class="card-header">
+                        <h3 class="card-title">Marmitex Tradicional</h3>
+                        <span class="card-price">R$ 18,00</span>
+                    </div>
+                    <p class="card-desc">Arroz fresquinho, feijão temperado, macarrão, salada e opção de carne do dia (bife ou frango assado).</p>
+                    <button class="btn-card" onclick="addItem('Marmitex Tradicional', 18)">Adicionar ao Pedido</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop" alt="Marmitex Especial" class="card-img">
+                <div class="card-body">
+                    <div class="card-header">
+                        <h3 class="card-title">Marmitex Especial c/ Churrasco</h3>
+                        <span class="card-price">R$ 20,00</span>
+                    </div>
+                    <p class="card-desc">Servida com farofa especial, feijão tropeiro, vinagrete e carnes assadas na brasa.</p>
+                    <button class="btn-card" onclick="addItem('Marmitex Churrasco', 20)">Adicionar ao Pedido</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buffet & Especiais da Casa -->
+        <h2 id="buffet" class="section-title">🍛 Buffet & Pratos Especiais</h2>
+        <div class="menu-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=600&auto=format&fit=crop" alt="Feijoada Completa" class="card-img">
+                <div class="card-body">
+                    <div class="card-header">
+                        <h3 class="card-title">Feijoada Completa da Casa</h3>
+                        <span class="card-price">R$ 20,00</span>
+                    </div>
+                    <p class="card-desc">Feijoada bem recheada com pertences, acompanhada de arroz branco, couve refogada, farofa e torresmo.</p>
+                    <button class="btn-card" onclick="addItem('Feijoada Completa', 20)">Adicionar ao Pedido</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop" alt="Bobó de Camarão" class="card-img">
+                <div class="card-body">
+                    <div class="card-header">
+                        <h3 class="card-title">Bobó Especial da Casa</h3>
+                        <span class="card-price">R$ 20,00</span>
+                    </div>
+                    <p class="card-desc">Prato cremoso tradicional muito elogiado pelos clientes, acompanhado de arroz branco e batata palha.</p>
+                    <button class="btn-card" onclick="addItem('Bobó Especial', 20)">Adicionar ao Pedido</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bebidas -->
+        <h2 id="bebidas" class="section-title">🥤 Bebidas Geladas</h2>
+        <div class="menu-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=600&auto=format&fit=crop" alt="Refrigerante Lata" class="card-img">
+                <div class="card-body">
+                    <div class="card-header">
+                        <h3 class="card-title">Refrigerante Lata 350ml</h3>
+                        <span class="card-price">R$ 6,00</span>
+                    </div>
+                    <p class="card-desc">Coca-Cola, Guaraná Antarctica ou Fanta trincando de gelada.</p>
+                    <button class="btn-card" onclick="addItem('Refrigerante Lata', 6)">Adicionar ao Pedido</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Barra de Carrinho Flutuante -->
+    <div class="smart-footer">
+        <div class="total-info">
+            <span>Total do Pedido</span>
+            <strong id="total-val">R$ 0,00</strong>
+        </div>
+        <button class="btn-cart-toggle" onclick="toggleModal(true)">
+            🛒 Ver Carrinho <span id="cart-count" class="cart-badge">0</span>
+        </button>
+    </div>
+
+    <!-- Modal do Carrinho -->
+    <div class="modal-overlay" id="cart-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Seu Pedido 🛒</h2>
+                <button class="close-btn" onclick="toggleModal(false)">✕</button>
+            </div>
+
+            <div id="cart-items-list">
+                <!-- Itens injetados via JS -->
+            </div>
+
+            <button class="btn-checkout" onclick="checkout()">📲 Finalizar Pedido no WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer id="contato">
+        <div class="info-tag">⏰ ABERTO DE SEG A SÁB: 11:00 ÀS 16:00</div>
+        
+        <p class="footer-text">📍 <strong>Endereço:</strong> Av. Plínio Giosa, Nº 27 - Vila Camarim / Fanchem, Queimados - RJ</p>
+        <p class="footer-text">📞 <strong>WhatsApp de Delivery:</strong> (21) 97508-8417</p>
+        <p class="footer-text">🍧 <strong>Diferencial:</strong> Sobremesa cortesia no buffet self-service!</p>
+
+        <div class="copyright">
+            &copy; 2026 Restaurante Simples Sabor Queimados - Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        let cart = [];
+        const whatsappNum = "5521975088417"; // Número real do Restaurante Simples Sabor
+
+        function addItem(name, price) {
+            cart.push({ id: Date.now() + Math.random(), name, price });
+            updateUI();
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateUI();
+        }
+
+        function updateUI() {
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('total-val').innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('cart-count').innerText = cart.length;
+
+            const listEl = document.getElementById('cart-items-list');
+            if (cart.length === 0) {
+                listEl.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 20px 0;">Seu carrinho está vazio.</p>';
+            } else {
+                listEl.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div>
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">R$ ${item.price},00</div>
+                        </div>
+                        <button class="btn-remove" onclick="removeItem(${item.id})">🗑️ Remover</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleModal(show) {
+            document.getElementById('cart-modal').style.display = show ? 'flex' : 'none';
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Adicione pelo menos 1 item ao pedido!');
+                return;
+            }
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            let msg = "*Olá! Gostaria de fazer um pedido pelo site do Restaurante Simples Sabor:*\n\n";
+            cart.forEach(item => { msg += `• ${item.name} - R$ ${item.price},00\n`; });
+            msg += `\n*Total:* R$ ${total},00\n*Endereço de entrega:* (favor digitar seu endereço aqui)`;
+            
+            window.open(`https://wa.me/${whatsappNum}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        updateUI();
+    </script>
+</body>
+</html>
